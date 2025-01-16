@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado da Consulta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+        .result-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #0056b3;
+            color: white;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        td:nth-child(even) {
+            background-color: #f1f1f1;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Resultado da Consulta</h1>
+
+    <div class="result-container">
+        {% if fundo %}
+        <h2>Dados do Fundo</h2>
+        <table>
+            <tr>
+                <th>CNPJ</th>
+                <td>{{ fundo['cnpj_fundo'] }}</td>
+            </tr>
+            <tr>
+                <th>Nome do Fundo</th>
+                <td>{{ fundo['nome_fundo'] }}</td>
+            </tr>
+            <tr>
+                <th>Mês de Referência</th>
+                <td>{{ fundo['dia_referencia'] }}</td>
+            </tr>
+            <tr>
+                <th>Valor da Cota</th>
+                <td>R$ {{ fundo['valor_cota'] }}</td>
+            </tr>
+            <tr>
+                <th>Patrimônio Líquido</th>
+                <td>R$ {{ '{:,.2f}'.format(fundo['patrimonio_liquido_fundo']) | replace(',', 'X') | replace('.', ',') | replace('X', '.') }}</td>
+            </tr>
+            <tr>
+                <th>Número de Cotistas</th>
+                <td>{{ fundo['cotistas_fundo'] }}</td>
+            </tr>
+            <tr>
+                <th>Rentabilidade Mensal</th>
+                <td>{{ fundo['rent_fundo_mes'] }}</td>
+            </tr>
+        </table>
+        {% else %}
+        <p class="error-message"><strong>Erro:</strong> {{ erro }}</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
